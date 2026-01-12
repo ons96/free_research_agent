@@ -1,0 +1,22 @@
+# Config for Free Research Agent Providers
+# You can define multiple providers here. The router will load balance/fall back between them.
+
+providers:
+  # 1. Custom OpenAI-compatible Provider (e.g., Puter.js via local bridge, or DeepInfra Free)
+  - name: "puter-bridge"
+    type: "openai"
+    base_url: "http://localhost:4000/v1"  # If you are running puterjs-chat-proxy
+    api_key: "sk-proj-..."                # Puter doesn't need a real key usually, but library might
+    models: ["gpt-4o", "claude-3-5-sonnet", "*"]
+
+  # 2. Another OpenAI-compatible endpoint (e.g. Groq Free Tier)
+  - name: "groq-free"
+    type: "openai"
+    base_url: "https://api.groq.com/openai/v1"
+    api_key: "${GROQ_API_KEY}" # Supports env var expansion manually if we add logic, but for now hardcode or use env loading logic
+    models: ["llama3-70b-8192", "mixtral-8x7b-32768"]
+
+  # 3. G4F (GPT4Free) - Direct Usage
+  - name: "g4f-direct"
+    type: "g4f"
+    models: ["gpt-4", "gpt-3.5-turbo", "gpt-4o"]

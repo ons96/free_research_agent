@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  agent:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    ports:
+      - "8000:8000"
+    restart: always
+    volumes:
+      - ../app:/app/app
+    environment:
+      - PYTHONUNBUFFERED=1
